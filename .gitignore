@@ -1,0 +1,15 @@
+# Maven/Gradle build
+target/
+*.jar
+*.war
+
+# IDE settings
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

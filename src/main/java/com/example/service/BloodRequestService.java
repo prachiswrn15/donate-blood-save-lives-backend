@@ -1,0 +1,78 @@
+package com.example.service;
+
+import com.example.model.BloodRequest;
+import com.example.repository.BloodRequestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class BloodRequestService {
+
+    @Autowired
+    private BloodRequestRepository bloodRequestRepository;
+
+    public BloodRequest saveRequest(BloodRequest request) {
+        // status default Pending
+        return bloodRequestRepository.save(request);
+    }
+
+    public List<BloodRequest> getAllRequests() {
+        return bloodRequestRepository.findAll();
+    }
+
+    public Optional<BloodRequest> getRequestById(Long id) {
+        return bloodRequestRepository.findById(id);
+    }
+
+    public void deleteRequest(Long id) {
+        if (bloodRequestRepository.existsById(id)) {
+            bloodRequestRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Request with ID " + id + " not found.");
+        }
+    }
+
+    public BloodRequest updateStatus(Long id, String newStatus) {
+        Optional<BloodRequest> optional = bloodRequestRepository.findById(id);
+        if (optional.isPresent()) {
+            BloodRequest req = optional.get();
+            req.setStatus(newStatus);
+            return bloodRequestRepository.save(req);
+        }
+        throw new RuntimeException("Request not found for id: " + id);
+    }
+
+    // ✅ Donor accepts: set status=Accepted and acceptedBy = donorEmail
+ // ✅ BloodRequestService.java
+    public BloodRequest acceptRequest(Long id, String donorEmail) {
+        Optional<BloodRequest> optional = bloodRequestRepository.findById(id);
+        if (optional.isPresent()) {
+            BloodRequest req = optional.get();
+
+            // Check: already accepted or completed
+            if ("Accepted".equalsIgnoreCase(req.getStatus())) {
+                throw new RuntimeException("Request is already accepted by someone.");
+            } 
+            if ("Completed".equalsIgnoreCase(req.getStatus())) {
+                throw new RuntimeException("Cannot accept a completed request.");
+            }
+
+            // Set status and acceptedBy
+            req.setStatus("Accepted");
+            req.setAcceptedBy(donorEmail);
+
+            // Save to DB
+            return bloodRequestRepository.save(req);
+        } else {
+            throw new RuntimeException("Request not found for id: " + id);
+        }
+    }
+
+
+    public List<BloodRequest> getRequestsByUsername(String usernameOrEmail) {
+        return bloodRequestRepository.findByRequestedByIgnoreCase(usernameOrEmail.trim());
+    }
+}
