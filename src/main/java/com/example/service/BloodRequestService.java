@@ -14,9 +14,14 @@ public class BloodRequestService {
     @Autowired
     private BloodRequestRepository bloodRequestRepository;
 
+    // ✅ Save request with safety check and debug
     public BloodRequest saveRequest(BloodRequest request) {
-        // status default Pending
-        return bloodRequestRepository.save(request);
+        if(request.getStatus() == null) {
+            request.setStatus("Pending"); // Safety check
+        }
+        BloodRequest saved = bloodRequestRepository.save(request);
+        System.out.println("Saved request ID: " + saved.getId()); // Debug
+        return saved;
     }
 
     public List<BloodRequest> getAllRequests() {
@@ -45,32 +50,23 @@ public class BloodRequestService {
         throw new RuntimeException("Request not found for id: " + id);
     }
 
-    // ✅ Donor accepts: set status=Accepted and acceptedBy = donorEmail
- // ✅ BloodRequestService.java
     public BloodRequest acceptRequest(Long id, String donorEmail) {
         Optional<BloodRequest> optional = bloodRequestRepository.findById(id);
         if (optional.isPresent()) {
             BloodRequest req = optional.get();
-
-            // Check: already accepted or completed
             if ("Accepted".equalsIgnoreCase(req.getStatus())) {
                 throw new RuntimeException("Request is already accepted by someone.");
             } 
             if ("Completed".equalsIgnoreCase(req.getStatus())) {
                 throw new RuntimeException("Cannot accept a completed request.");
             }
-
-            // Set status and acceptedBy
             req.setStatus("Accepted");
             req.setAcceptedBy(donorEmail);
-
-            // Save to DB
             return bloodRequestRepository.save(req);
         } else {
             throw new RuntimeException("Request not found for id: " + id);
         }
     }
-
 
     public List<BloodRequest> getRequestsByUsername(String usernameOrEmail) {
         return bloodRequestRepository.findByRequestedByIgnoreCase(usernameOrEmail.trim());

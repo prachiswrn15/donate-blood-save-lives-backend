@@ -10,7 +10,7 @@ public class BloodRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "patient_name")    // SQL column name ke saath match
+    @Column(name = "patient_name")
     private String patientName;
 
     @Column(name = "age")
@@ -19,19 +19,24 @@ public class BloodRequest {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "blood_group")     // SQL column name ke saath match
+    @Column(name = "blood_group")
     private String bloodGroup;
 
     private String location;
     private String reason;
 
-    @Column(name = "requested_by")    // SQL column name ke saath match
+    @Column(name = "requested_by")
     private String requestedBy;
 
-    @Column(name = "accepted_by")     // SQL column name ke saath match
+    @Column(name = "accepted_by")
     private String acceptedBy;
 
-    private String status = "Pending";  // Pending | Accepted | Completed
+    private String status;  // Remove initial value here
+
+    // ✅ Default constructor sets status to Pending
+    public BloodRequest() {
+        this.status = "Pending";
+    }
 
     // Getters & Setters
     public Long getId() { return id; }
