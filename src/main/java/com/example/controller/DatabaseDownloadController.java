@@ -16,8 +16,10 @@ public class DatabaseDownloadController {
 
         // ✅ Render ke liye absolute path fix
         // Render me file root folder me hoti hai (same level as pom.xml)
-        String dbPath = "./blood_donation.db";  // <-- yahi sahi path hai
-        File dbFile = new File(dbPath);
+//        String dbPath = "./blood_donation.db";  // <-- yahi sahi path hai
+//        File dbFile = new File(dbPath);
+    	String dbPath = "/opt/render/project/src/blood_donation.db";
+    	File dbFile = new File(dbPath);
 
         // 🔍 Agar file nahi milti to 404 return
         if (!dbFile.exists()) {
