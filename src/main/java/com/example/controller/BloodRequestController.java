@@ -11,7 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://donate-blood-frontend-lives.vercel.app")
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://donate-blood-frontend-lives.vercel.app"
+})
+
 @RestController
 @RequestMapping("/api/requests")
 public class BloodRequestController {
