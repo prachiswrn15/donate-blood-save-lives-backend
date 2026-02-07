@@ -1,39 +1,27 @@
 package com.example.model;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "blood_request")
 public class BloodRequest {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "patient_name")
     private String patientName;
-
     @Column(name = "age")
     private Integer age;
 
     @Column(name = "gender")
     private String gender;
-
     @Column(name = "blood_group")
     private String bloodGroup;
-
     private String location;
     private String reason;
-
     @Column(name = "requested_by")
     private String requestedBy;
-
     @Column(name = "accepted_by")
     private String acceptedBy;
-
     private String status;  // Remove initial value here
-
-    // ✅ Default constructor sets status to Pending
     public BloodRequest() {
         this.status = "Pending";
     }
