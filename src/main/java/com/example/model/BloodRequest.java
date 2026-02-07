@@ -21,7 +21,7 @@ public class BloodRequest {
     private String requestedBy;
     @Column(name = "accepted_by")
     private String acceptedBy;
-    private String status;  // Remove initial value here
+    private String status;  
     public BloodRequest() {
         this.status = "Pending";
     }
