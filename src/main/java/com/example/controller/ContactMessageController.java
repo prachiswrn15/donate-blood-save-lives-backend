@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000") // frontend URL allow
+@CrossOrigin(origins = "http://localhost:3000") 
 @RestController
 @RequestMapping("/api/contact")
 public class ContactMessageController {
@@ -15,13 +15,13 @@ public class ContactMessageController {
     @Autowired
     private ContactMessageRepository contactMessageRepository;
 
-    // ✅ Save new contact message
+    // Save contact message
     @PostMapping
     public ContactMessage saveMessage(@RequestBody ContactMessage contactMessage) {
         return contactMessageRepository.save(contactMessage);
     }
 
-    // ✅ Get all contact messages
+    
     @GetMapping
     public List<ContactMessage> getAllMessages() {
         return contactMessageRepository.findAll();
