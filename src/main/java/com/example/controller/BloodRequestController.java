@@ -48,7 +48,7 @@ public class BloodRequestController {
         }
     }
 
-    // ✅ Update status via JSON body { "status": "Completed" }
+    
     @PutMapping("/{id}/status")
     public ResponseEntity<?> updateStatus(@PathVariable Long id, @RequestBody Map<String, String> body) {
         try {
@@ -60,7 +60,7 @@ public class BloodRequestController {
         }
     }
 
-    // ✅ Donor accepts (query param donorEmail)
+    //  Donor accepts (query param donorEmail)
     @PutMapping("/{id}/accept")
     public ResponseEntity<?> accept(@PathVariable Long id, @RequestParam String donorEmail) {
         try {
@@ -71,7 +71,7 @@ public class BloodRequestController {
         }
     }
 
-    // ✅ Patient's own requests by email/username
+    // Patient's own requests by email/username
     @GetMapping("/user/{username}")
     public ResponseEntity<List<BloodRequest>> getRequestsByUsername(@PathVariable String username) {
         List<BloodRequest> userRequests = bloodRequestService.getRequestsByUsername(username);
