@@ -56,7 +56,7 @@ public class UserController {
                                      .body("User not found with email: " + email);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // backend console me error dikhne ke liye
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body("Internal server error while fetching user");
         }
