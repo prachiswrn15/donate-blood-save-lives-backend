@@ -1,35 +1,23 @@
  package com.example.model;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String password;
-   //
-
-    @Column(name = "blood_group_")  // ✅ matches DB column
+    @Column(name = "blood_group_")
     private String bloodGroup;
-
     private String city;
-
-    @Column(name = "phone")  // ✅ matches DB column
+    @Column(name = "phone")
     private String phoneNumber;
-
     private String role;
-
     @Column(name = "is_available")
     private boolean isAvailable = true;
-
     public User() {}
-
     public User(String name, String email, String password, String bloodGroup, String city, String phoneNumber, String role) {
         this.name = name;
         this.email = email;
@@ -40,7 +28,6 @@ public class User {
         this.role = role;
         this.isAvailable = true;
     }
-
     // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
