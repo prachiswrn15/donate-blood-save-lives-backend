@@ -2,6 +2,13 @@
 target/
 *.jar
 *.war
+node_modules/
+donate-blood-frontend/build/
+.env
+.env.*
+!.env.example
+blood_donation.db
+blood_donation.db.backup-*
 
 # IDE settings
 .classpath

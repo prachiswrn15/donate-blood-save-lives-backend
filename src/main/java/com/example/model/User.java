@@ -1,6 +1,8 @@
  package com.example.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
@@ -12,15 +14,15 @@ public class User {
 
     private String name;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-   //
-
-    @Column(name = "blood_group_")  // ✅ matches DB column
+    private LocalDate lastDonationDate;
+    @Column(name = "blood_group_")
     private String bloodGroup;
 
     private String city;
 
-    @Column(name = "phone")  // ✅ matches DB column
+    @Column(name = "phone")
     private String phoneNumber;
 
     private String role;
@@ -40,8 +42,6 @@ public class User {
         this.role = role;
         this.isAvailable = true;
     }
-
-    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -68,4 +68,6 @@ public class User {
 
     public boolean getIsAvailable() { return isAvailable; }
     public void setIsAvailable(boolean isAvailable) { this.isAvailable = isAvailable; }
+    public LocalDate getLastDonationDate() { return lastDonationDate; }
+    public void setLastDonationDate(LocalDate date) { this.lastDonationDate = date; }
 }

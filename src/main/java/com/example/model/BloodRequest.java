@@ -24,6 +24,10 @@ public class BloodRequest {
 
     private String location;
     private String reason;
+    private String hospital;
+    private String contactNumber;
+    private String urgency = "Normal";
+    private Integer quantity;
 
     @Column(name = "requested_by")
     private String requestedBy;
@@ -31,11 +35,11 @@ public class BloodRequest {
     @Column(name = "accepted_by")
     private String acceptedBy;
 
-    private String status;  // Remove initial value here
+    private String status;
 
     // ✅ Default constructor sets status to Pending
     public BloodRequest() {
-        this.status = "Pending";
+        this.status = "Pending Verification";
     }
 
     // Getters & Setters
@@ -59,6 +63,10 @@ public class BloodRequest {
 
     public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
+    public String getUrgency() { return urgency == null ? "Normal" : urgency; }
+    public void setUrgency(String urgency) { this.urgency = urgency; }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
     public String getRequestedBy() { return requestedBy; }
     public void setRequestedBy(String requestedBy) { this.requestedBy = requestedBy; }
@@ -66,6 +74,14 @@ public class BloodRequest {
     public String getAcceptedBy() { return acceptedBy; }
     public void setAcceptedBy(String acceptedBy) { this.acceptedBy = acceptedBy; }
 
-    public String getStatus() { return status; }
+    public String getStatus() {
+        if (status == null || "Pending".equalsIgnoreCase(status)) return "Pending Verification";
+        if ("Accepted".equalsIgnoreCase(status)) return "Donor Assigned";
+        return status;
+    }
     public void setStatus(String status) { this.status = status; }
+    public String getHospital() { return hospital; }
+    public void setHospital(String hospital) { this.hospital = hospital; }
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
 }
