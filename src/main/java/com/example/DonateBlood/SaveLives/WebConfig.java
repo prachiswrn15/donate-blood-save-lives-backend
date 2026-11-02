@@ -5,13 +5,17 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.example.security.ApiAccess;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     private final ApiAccess access;
 
-    public WebConfig(ApiAccess access) {
+    private final String frontendOrigin;
+
+    public WebConfig(ApiAccess access, @Value("${app.frontend.origin}") String frontendOrigin) {
         this.access = access;
+        this.frontendOrigin = frontendOrigin;
     }
 
     @Override
@@ -24,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(
                         "http://localhost:3000",
-                        "https://donate-blood-frontend-lives.vercel.app"
+                        frontendOrigin
                 )
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
