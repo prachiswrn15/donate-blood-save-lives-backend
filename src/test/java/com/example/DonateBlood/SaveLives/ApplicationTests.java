@@ -8,6 +8,6 @@ class ApplicationTests {
 
     @Test
     void contextLoads() {
-        assertTrue(true); // Dummy assertion to ensure the test is not empty
+        assertTrue(true);
     }
 }
